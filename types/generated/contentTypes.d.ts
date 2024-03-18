@@ -793,11 +793,11 @@ export interface ApiBoseBose extends Schema.CollectionType {
   info: {
     singularName: 'bose';
     pluralName: 'boses';
-    displayName: 'Bosse';
+    displayName: 'Bosses';
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
@@ -807,9 +807,10 @@ export interface ApiBoseBose extends Schema.CollectionType {
       'manyToMany',
       'api::competition.competition'
     >;
+    slug: Attribute.UID<'api::bose.bose', 'name'>;
+    Surname: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::bose.bose', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::bose.bose', 'oneToOne', 'admin::user'> &
