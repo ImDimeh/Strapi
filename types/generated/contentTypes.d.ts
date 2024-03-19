@@ -809,6 +809,11 @@ export interface ApiBoseBose extends Schema.CollectionType {
     >;
     slug: Attribute.UID<'api::bose.bose', 'name'>;
     Surname: Attribute.String;
+    Bosse_location: Attribute.Relation<
+      'api::bose.bose',
+      'manyToOne',
+      'api::location.location'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::bose.bose', 'oneToOne', 'admin::user'> &
@@ -853,6 +858,44 @@ export interface ApiCompetitionCompetition extends Schema.CollectionType {
   };
 }
 
+export interface ApiLocationLocation extends Schema.CollectionType {
+  collectionName: 'locations';
+  info: {
+    singularName: 'location';
+    pluralName: 'locations';
+    displayName: 'Location';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    location: Attribute.String;
+    name: Attribute.String & Attribute.Unique;
+    bosses: Attribute.Relation<
+      'api::location.location',
+      'oneToMany',
+      'api::bose.bose'
+    >;
+    slug: Attribute.UID<'api::location.location', 'name'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::location.location',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::location.location',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -873,6 +916,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::bose.bose': ApiBoseBose;
       'api::competition.competition': ApiCompetitionCompetition;
+      'api::location.location': ApiLocationLocation;
     }
   }
 }

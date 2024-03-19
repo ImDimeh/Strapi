@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "locations",
+  "info": {
+    "singularName": "location",
+    "pluralName": "locations",
+    "displayName": "Location",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "location": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "unique": true
+    },
+    "bosses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bose.bose",
+      "mappedBy": "Bosse_location"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}

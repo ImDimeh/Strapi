@@ -37,6 +37,12 @@
     },
     "Surname": {
       "type": "string"
+    },
+    "Bosse_location": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::location.location",
+      "inversedBy": "bosses"
     }
   }
 }
